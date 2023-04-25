@@ -2,7 +2,7 @@ import { Head, Html, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
-    <Html lang='en'>
+    <Html lang='en' className='h-full'>
       <Head>
         <link
           rel='preload'
@@ -12,7 +12,7 @@ export default function Document() {
           crossOrigin='anonymous'
         />
       </Head>
-      <body>
+      <body className='h-screen fixed'>
         <Main />
         <NextScript />
       </body>

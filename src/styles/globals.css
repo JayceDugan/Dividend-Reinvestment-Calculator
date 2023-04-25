@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
 /*:root {*/
 /*  !* #region  !**=========== Primary Color =========== *!*/
 /*  !* !STARTERCONF Customize these variable, copy and paste from /styles/colors.css for list of colors *!*/
