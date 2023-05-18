@@ -20,7 +20,6 @@ export default function CurrencyInput(props: CurrencyInputProps) {
         </div>
         <input
           type='number'
-          min='0'
           step='.01'
           name='price'
           id='price'

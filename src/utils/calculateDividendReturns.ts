@@ -35,25 +35,19 @@ type CalculateAnnualDividend = (
 const calculatedDividendYieldPercentage = (
   currentYear: number,
   payload: CalculateTotalDividendReturnsPayload
-) => {
-  return Number(
-    payload.initialAnnualDividendYield +
-      payload.annualDividendAppreciation * currentYear
-  ).toFixed(2);
-};
+) =>
+  Number(payload.initialAnnualDividendYield) +
+  Number(payload.annualDividendAppreciation * currentYear);
 const calculateAnnualDividend: CalculateAnnualDividend = (
   payload,
   currentYear
-) => {
-  return Number(
-    Number(calculatedDividendYieldPercentage(currentYear, payload)) *
-      Number(payload.sharePrice)
-  );
-};
+) =>
+  calculatedDividendYieldPercentage(currentYear, payload) *
+  Number(payload.sharePrice);
 
 type CalculateTotalDividendReturns = (
   payload: CalculateTotalDividendReturnsPayload,
-  currentYear?: number,
+  currentYear: number,
   totalDividendReturns?: CalculateTotalDividendReturnsResult[]
 ) => CalculateTotalDividendReturnsResult[];
 export const calculateTotalDividendReturns: CalculateTotalDividendReturns = (
@@ -61,7 +55,8 @@ export const calculateTotalDividendReturns: CalculateTotalDividendReturns = (
   currentYear = 1,
   totalDividendReturns = []
 ) => {
-  const calculationsComplete = currentYear > payload.investmentPeriod;
+  const calculationsComplete =
+    Number(currentYear) > Number(payload.investmentPeriod);
 
   if (calculationsComplete) {
     return totalDividendReturns;
@@ -72,25 +67,26 @@ export const calculateTotalDividendReturns: CalculateTotalDividendReturns = (
     currentYear,
     payload
   );
+
   const principal =
     Number(payload.startingPrincipal) +
-    payload.annualContribution * (currentYear - 1);
-  const yieldOnCost = Number((annualDividend / principal) * 100).toFixed(2);
+    Number(payload.annualContribution) * (Number(currentYear) - 1);
+  const yieldOnCost = (Number(annualDividend) / Number(principal)) * 100;
   const afterDripValue = payload.dividendReinvestmentPlanEnabled
-    ? Number(principal + annualDividend).toFixed(2)
-    : Number(principal).toFixed(2);
-  const principalIncrease = Number(
-    Number(afterDripValue) - Number(payload.startingPrincipal)
-  ).toFixed(2);
-  const newBalance = Number(
-    Number(afterDripValue) + Number(payload.annualContribution) * currentYear
-  ).toFixed(2);
+    ? Number(principal) + Number(annualDividend)
+    : Number(principal);
+  const principalIncrease =
+    Number(afterDripValue) - Number(payload.startingPrincipal);
+  const newBalance =
+    Number(afterDripValue) +
+    Number(payload.annualContribution) * Number(currentYear);
+
   const cumulativeDividends = totalDividendReturns.reduce(
-    (acc, item) => acc + item.annualDividend,
-    annualDividend
+    (acc, item) => Number(acc) + Number(item.annualDividend),
+    Number(annualDividend)
   );
 
-  return calculateTotalDividendReturns(payload, currentYear + 1, [
+  return calculateTotalDividendReturns(payload, Number(currentYear) + 1, [
     ...totalDividendReturns,
     {
       year: currentYear,
