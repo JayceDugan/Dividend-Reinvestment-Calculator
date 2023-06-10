@@ -25,7 +25,7 @@ export interface InvestmentState {
 
 // Define the initial state using that type
 const initialState: InvestmentState = {
-  startingPrincipal: 1.0,
+  startingPrincipal: 10.0,
   initialAnnualDividendYield: 0.05,
   distributionFrequency: DistributionFrequency.QUARTERLY,
   annualContribution: 5.0,

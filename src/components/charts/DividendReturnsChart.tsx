@@ -74,7 +74,7 @@ const DividendReturnsChart = () => {
     taxExemptAnnualDividendIncome,
     investmentPeriod,
     sharePrice,
-  });
+  }, 0);
 
   const contributions = returns.map(
     (returnYear) => returnYear.annualContribution
